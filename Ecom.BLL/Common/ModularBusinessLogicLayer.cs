@@ -1,10 +1,12 @@
-﻿using Ecom.BLL.Service.Abstraction;
-using Ecom.BLL.Service.Implementation;
-
-namespace Tiers.BLL.Common
+﻿
+namespace Ecom.BLL.Common
 {
     public static class ModularBusinessLogicLayer
     {
-        
+        public static IServiceCollection AddBusinessInBLL(this IServiceCollection services)
+        {
+            services.AddAutoMapper(x => x.AddProfile(new DomainProfile()));
+            return services;
+        }
     }
 }
