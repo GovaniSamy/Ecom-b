@@ -1,12 +1,13 @@
 ﻿
 namespace Ecom.DAL.Entity
 {
-    public class Category
+    public class ProductReview
     {
         [Key]
         public int Id { get; private set; }
-        public string? Name { get; private set; }
-        public string? ImageUrl { get; private set; }
+        public string? Title { get; private set; }
+        public string? Description { get; private set; }
+        public decimal Rating { get; private set; }
         public string? CreatedBy { get; private set; }
         public DateTime CreatedOn { get; private set; }
         public DateTime? DeletedOn { get; private set; }
@@ -15,26 +16,39 @@ namespace Ecom.DAL.Entity
         public string? UpdatedBy { get; private set; }
         public bool IsDeleted { get; private set; }
 
+        // Foriegn Keys
+        [ForeignKey("Product")]
+        public int ProductId { get; private set; }
+
+        [ForeignKey("AppUser")]
+        public int AppUserId { get; private set; }
+
         // Navigation Properties
-        public virtual ICollection<Product>? Products { get; private set; }
+        public virtual Product? Product { get; private set; }
+        public virtual AppUser? AppUser { get; private set; }
 
         // Logic
-        public Category() { }
-        public Category(string name, string imageUrl, string createdBy)
+        public ProductReview() { }
+        public ProductReview(string title, string description, decimal rating, string createdBy, int productId,
+            int appUserId)
         {
-            Name = name;
-            ImageUrl = imageUrl;
+            Title = title;
+            Description = description;
+            Rating = rating;
             CreatedBy = createdBy;
             CreatedOn = DateTime.UtcNow;
             IsDeleted = false;
+            ProductId = productId;
+            AppUserId = appUserId;
         }
 
-        public bool Update(string name, string imageUrl, string userModified)
+        public bool Update(string title, string description, decimal rating, string userModified)
         {
             if (!string.IsNullOrEmpty(userModified))
             {
-                Name = name;
-                ImageUrl = imageUrl;
+                Title = title;
+                Description = description;
+                Rating = rating;
                 UpdatedOn = DateTime.UtcNow;
                 UpdatedBy = userModified;
                 return true;

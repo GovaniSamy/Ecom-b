@@ -1,12 +1,10 @@
 ﻿
 namespace Ecom.DAL.Entity
 {
-    public class Category
+    public class WishlistItem
     {
         [Key]
         public int Id { get; private set; }
-        public string? Name { get; private set; }
-        public string? ImageUrl { get; private set; }
         public string? CreatedBy { get; private set; }
         public DateTime CreatedOn { get; private set; }
         public DateTime? DeletedOn { get; private set; }
@@ -15,26 +13,34 @@ namespace Ecom.DAL.Entity
         public string? UpdatedBy { get; private set; }
         public bool IsDeleted { get; private set; }
 
+        // Foriegn Keys
+        [ForeignKey("AppUser")]
+        public int AppUserId { get; private set; }
+
+        [ForeignKey("Product")]
+        public int ProductId { get; private set; }
+
         // Navigation Properties
-        public virtual ICollection<Product>? Products { get; private set; }
+        public virtual AppUser? AppUser { get; private set; }
+        public virtual Product? Product { get; private set; }
 
         // Logic
-        public Category() { }
-        public Category(string name, string imageUrl, string createdBy)
+        public WishlistItem() { }
+        public WishlistItem(int appUserId, int productId, string createdBy)
         {
-            Name = name;
-            ImageUrl = imageUrl;
+            AppUserId = appUserId;
+            ProductId = productId;
             CreatedBy = createdBy;
             CreatedOn = DateTime.UtcNow;
             IsDeleted = false;
         }
 
-        public bool Update(string name, string imageUrl, string userModified)
+        public bool Update(int appUserId, int productId, string userModified)
         {
             if (!string.IsNullOrEmpty(userModified))
             {
-                Name = name;
-                ImageUrl = imageUrl;
+                AppUserId = appUserId;
+                ProductId = productId;
                 UpdatedOn = DateTime.UtcNow;
                 UpdatedBy = userModified;
                 return true;

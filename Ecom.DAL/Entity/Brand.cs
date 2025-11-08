@@ -1,7 +1,7 @@
 ﻿
 namespace Ecom.DAL.Entity
 {
-    public class Category
+    public class Brand
     {
         [Key]
         public int Id { get; private set; }
@@ -19,8 +19,8 @@ namespace Ecom.DAL.Entity
         public virtual ICollection<Product>? Products { get; private set; }
 
         // Logic
-        public Category() { }
-        public Category(string name, string imageUrl, string createdBy)
+        public Brand() { }
+        public Brand(string name, string imageUrl, string createdBy)
         {
             Name = name;
             ImageUrl = imageUrl;

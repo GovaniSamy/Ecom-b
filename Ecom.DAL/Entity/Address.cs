@@ -1,12 +1,14 @@
 ﻿
 namespace Ecom.DAL.Entity
 {
-    public class Category
+    public class Address
     {
         [Key]
         public int Id { get; private set; }
-        public string? Name { get; private set; }
-        public string? ImageUrl { get; private set; }
+        public string? Street { get; private set; }
+        public string? City { get; private set; }
+        public string? Country { get; private set; }
+        public string? PostalCode { get; private set; }
         public string? CreatedBy { get; private set; }
         public DateTime CreatedOn { get; private set; }
         public DateTime? DeletedOn { get; private set; }
@@ -15,26 +17,38 @@ namespace Ecom.DAL.Entity
         public string? UpdatedBy { get; private set; }
         public bool IsDeleted { get; private set; }
 
+        // Foriegn Keys
+        [ForeignKey("AppUser")]
+        public int AppUserId { get; private set; }
+
         // Navigation Properties
-        public virtual ICollection<Product>? Products { get; private set; }
+        public virtual AppUser? AppUser { get; private set; }
 
         // Logic
-        public Category() { }
-        public Category(string name, string imageUrl, string createdBy)
+        public Address() { }
+        public Address(string street, string city, string country, string postalCode, string createdBy,
+            int appUserId)
         {
-            Name = name;
-            ImageUrl = imageUrl;
+            Street = street;
+            City = city;
+            Country = country;
+            PostalCode = postalCode;
             CreatedBy = createdBy;
             CreatedOn = DateTime.UtcNow;
             IsDeleted = false;
+            AppUserId = appUserId;
         }
 
-        public bool Update(string name, string imageUrl, string userModified)
+        public bool Update(string street, string city, string country, string postalCode,
+            int appUserId, string userModified)
         {
             if (!string.IsNullOrEmpty(userModified))
             {
-                Name = name;
-                ImageUrl = imageUrl;
+                Street = street;
+                City = city;
+                Country = country;
+                PostalCode = postalCode;
+                AppUserId = appUserId;
                 UpdatedOn = DateTime.UtcNow;
                 UpdatedBy = userModified;
                 return true;

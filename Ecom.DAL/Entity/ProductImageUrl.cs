@@ -1,11 +1,10 @@
 ﻿
 namespace Ecom.DAL.Entity
 {
-    public class Category
+    public class ProductImageUrl
     {
         [Key]
         public int Id { get; private set; }
-        public string? Name { get; private set; }
         public string? ImageUrl { get; private set; }
         public string? CreatedBy { get; private set; }
         public DateTime CreatedOn { get; private set; }
@@ -15,26 +14,29 @@ namespace Ecom.DAL.Entity
         public string? UpdatedBy { get; private set; }
         public bool IsDeleted { get; private set; }
 
+        [ForeignKey("Product")]
+        public int ProductId { get; private set; }
+
         // Navigation Properties
-        public virtual ICollection<Product>? Products { get; private set; }
+        public Product? Product { get; private set; }
 
         // Logic
-        public Category() { }
-        public Category(string name, string imageUrl, string createdBy)
+        public ProductImageUrl() { }
+        public ProductImageUrl(string imageUrl, int productId, string createdBy)
         {
-            Name = name;
             ImageUrl = imageUrl;
+            ProductId = productId;
             CreatedBy = createdBy;
             CreatedOn = DateTime.UtcNow;
             IsDeleted = false;
         }
 
-        public bool Update(string name, string imageUrl, string userModified)
+        public bool Update(string imageUrl, int productId, string userModified)
         {
             if (!string.IsNullOrEmpty(userModified))
             {
-                Name = name;
                 ImageUrl = imageUrl;
+                ProductId = productId;
                 UpdatedOn = DateTime.UtcNow;
                 UpdatedBy = userModified;
                 return true;
