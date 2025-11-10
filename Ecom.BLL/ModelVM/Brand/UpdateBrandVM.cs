@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Ecom.BLL.ModelVM.Brand
 {
-    internal class UpdateBrandVM
+    public class UpdateBrandVM
     {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string ImageUrl { get; set; } = string.Empty;
+        public string UpdatedBy { get; set; } = string.Empty;
     }
 }

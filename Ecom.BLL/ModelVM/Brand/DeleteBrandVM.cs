@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Ecom.BLL.ModelVM.Brand
 {
-    internal class DeleteBrandVM
+    public class DeleteBrandVM
     {
+        public int Id { get; set; }
+        public string DeletedBy { get; set; } = string.Empty;
     }
 }
