@@ -10,6 +10,6 @@ namespace Ecom.BLL.ModelVM.CartItem
         public int CartId { get; set; }
         public int ProductId { get; set; }
 
-        public string? UpdatedBy { get; private set; }
+        public string? UpdatedBy { get; set; }
     }
 }

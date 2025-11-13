@@ -10,6 +10,6 @@ namespace Ecom.BLL.ModelVM.Category
         [Url]
         public string? ImageUrl { get; set; }
         public IFormFile? Image { get; set; }
-        public string? UpdatedBy { get; private set; }
+        public string? UpdatedBy { get; set; }
     }
 }

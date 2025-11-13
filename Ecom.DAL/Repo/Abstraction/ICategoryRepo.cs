@@ -10,7 +10,10 @@ namespace Ecom.DAL.Repo.Abstraction
         Task<Category> GetByIdAsync(int id);
         Task<bool> AddAsync(Category newCategory);
         Task<bool> UpdateAsync(Category newCategory);
-        Task<bool> DeleteAsync(int id);
+        Task<bool> HardDeleteAsync(int id);
         Task<bool> ToggleDeleteAsync(int id, string userModified);
+
+        // helpers
+        Task<bool> ExistsByNameAsync(string name);
     }
 }
