@@ -98,7 +98,10 @@ namespace Ecom.BLL.Mapper
                 .ForMember(dest => dest.Email, opt => opt.Ignore())
                 .ForMember(dest => dest.UserName, opt => opt.Ignore())
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
-                
+
+            // Role Mappings
+            CreateMap<IdentityRole, RoleVM>().ReverseMap();
+
 
         }
 

@@ -28,6 +28,7 @@ namespace Ecom.DAL.Common
                 // User settings
                 options.User.RequireUniqueEmail = true;
             })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders() // Add all default token providers
                 .AddSignInManager<SignInManager<AppUser>>();

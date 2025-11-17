@@ -22,3 +22,5 @@ global using System.Text;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.AspNetCore.Authentication.Cookies;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Ecom.BLL.ModelVM.Role;
+global using System.Data;

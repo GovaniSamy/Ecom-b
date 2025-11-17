@@ -53,9 +53,29 @@ namespace Ecom.PL
             //    {
             //        var context = services.GetRequiredService<ApplicationDbContext>();
             //        var userManager = services.GetRequiredService<UserManager<AppUser>>();
-            //        // This one line creates the DB and seeds it
-            //        DbSeeder.Seed(context, userManager);
+            //        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+            //        var adminUser = new AppUser(
+            //            email: "admin@ecom.com",
+            //            displayName: "Admin",
+            //            profileImageUrl: null,
+            //            createdBy: "System",
+            //            phoneNumber: null
+            //        )
+            //        {
+            //            EmailConfirmed = true // Confirm the email immediately
+            //        };
+
+            //        // Use UserManager to create the user, which handles hashing
+            //        userManager.CreateAsync(adminUser, "Admin@123").Wait();
+                    
+
+            //        // Add the new user to the "Admin" role
+            //        userManager.AddToRoleAsync(adminUser, "Admin").Wait();
             //    }
+            //        // This one line creates the DB and seeds it
+            //        //DbSeeder.Seed(context, userManager);
+                
             //    catch (Exception ex)
             //    {
             //        var logger = services.GetRequiredService<ILogger<Program>>();

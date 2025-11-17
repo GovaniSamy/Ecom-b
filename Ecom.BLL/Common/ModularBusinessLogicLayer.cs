@@ -38,6 +38,7 @@ namespace Ecom.BLL.Common
             services.AddScoped<IBrandService, BrandService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IRoleService, RoleService>();
             return services;
         }
     }
