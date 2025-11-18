@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ecom.DAL.Repo.Implementation
 {
-    public class PaymentRepo : IPaymentRepo
+    public class PaymentRepo 
     {
         private readonly ApplicationDbContext _context;
 
