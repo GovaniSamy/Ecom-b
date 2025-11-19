@@ -16,5 +16,7 @@ namespace Ecom.DAL.Repo.Abstraction
 
         Task<bool> DecreaseStockAsync(int productId, int quantity);
         Task<bool> IncreaseStockAsync(int productId, int quantity);
+
+        Task<bool> UpdateRatingAsync(int productId, decimal newAverageRating);
     }
 }

@@ -87,6 +87,17 @@ namespace Ecom.DAL.Repo.Implementation
 
             return await _db.SaveChangesAsync() > 0;
         }
+
+        public async Task<bool> UpdateRatingAsync(int productId, decimal newAverageRating)
+        {
+            var product = await _db.Products.FindAsync(productId);
+            if (product == null)
+                return false;
+
+            product.UpdateRating(newAverageRating);  // <-- USE ENTITY FUNCTION
+
+            return await _db.SaveChangesAsync() > 0;
+        }
     }
 
 }

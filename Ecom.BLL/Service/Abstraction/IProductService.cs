@@ -34,6 +34,8 @@ namespace Ecom.BLL.Service.Abstraction
 
         Task<ResponseResult<bool>> DecreaseStockAsync(int productId, int quantity);
 
+        Task<bool> UpdateRatingAsync(int productId, decimal rating);
+
 
 
     }

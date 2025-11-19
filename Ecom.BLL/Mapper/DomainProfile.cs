@@ -6,6 +6,7 @@ using Ecom.DAL.Entity;
 using Microsoft.Data.SqlClient;
 
 using Ecom.BLL.ModelVM.Product;
+using Ecom.BLL.ModelVM.ProductReview;
 
 namespace Ecom.BLL.Mapper
 {
@@ -75,6 +76,32 @@ namespace Ecom.BLL.Mapper
             CreateMap<Product, UpdateProductVM>().ReverseMap(); // Update uses Update() inside repo
 
             CreateMap<Product, DeleteProductVM>().ReverseMap();
+
+
+            //ProductReviewMapping
+            // Entity -> GetVM
+            CreateMap<CreateProductVM, Product>()
+           .ForMember(dest => dest.ThumbnailUrl, opt => opt.Ignore()) // file handling outside
+           .ForMember(dest => dest.ProductReviews, opt => opt.Ignore())
+           .ForMember(dest => dest.ProductImageUrls, opt => opt.Ignore())
+           .ForMember(dest => dest.Id, opt => opt.Ignore()).ReverseMap();
+
+            // UPDATE
+            CreateMap<UpdateProductVM, Product>()
+                .ForMember(dest => dest.ThumbnailUrl, opt => opt.Ignore())  // you will set manually
+                .ForMember(dest => dest.ProductReviews, opt => opt.Ignore())
+                .ForMember(dest => dest.ProductImageUrls, opt => opt.Ignore())
+                .ForMember(dest => dest.Rating, opt => opt.Ignore())        // rating updated separately
+                .ForMember(dest => dest.QuantitySold, opt => opt.Ignore()).ReverseMap();
+
+            // GET
+            CreateMap<Product, GetProductVM>()
+                .ForMember(dest => dest.ThumbnailUrl,
+                    opt => opt.MapFrom(src => src.ThumbnailUrl))
+                .ForMember(dest => dest.BrandName,
+                    opt => opt.MapFrom(src => src.Brand.Name))
+                .ForMember(dest => dest.CategoryName,
+                    opt => opt.MapFrom(src => src.Category.Name)).ReverseMap();
 
             //Brand Mappings
 

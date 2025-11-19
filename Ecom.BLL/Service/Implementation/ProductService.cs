@@ -267,6 +267,11 @@ namespace Ecom.BLL.Service.Implementation
             }
         }
 
+        public async Task<bool> UpdateRatingAsync(int productId, decimal newAverageRating)
+        {
+            return await _productRepo.UpdateRatingAsync(productId, newAverageRating);
+        }
+
     }
 
 }

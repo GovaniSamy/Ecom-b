@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ecom.BLL.ModelVM.ProductReview;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,14 +9,15 @@ namespace Ecom.BLL.Service.Abstraction
 {
     public interface IProductReviewService
     {
-        Task<ServiceResponse<IEnumerable<ProductReviewGetVM>>> GetAllAsync();
+        Task<ResponseResult<IEnumerable<ProductReviewGetVM>>> GetAllAsync();
 
-        Task<ServiceResponse<ProductReviewGetVM>> GetByIdAsync(int id);
-        Task<ServiceResponse<IEnumerable<ProductReviewGetVM>>> GetByProductIdAsync(int productId);
+        Task<ResponseResult<ProductReviewGetVM>> GetByIdAsync(int id);
+        Task<ResponseResult<IEnumerable<ProductReviewGetVM>>> GetByProductIdAsync(int productId);
 
-        Task<ServiceResponse<IEnumerable<ProductReviewGetVM>>> GetByUserIdAsync(string userId);
-        Task<ServiceResponse<bool>> CreateAsync(ProductReviewCreateVM vm);
-        Task<ServiceResponse<bool>> UpdateAsync(ProductReviewUpdateVM vm);
-        Task<ServiceResponse<bool>> ToggleDeleteAsync(int id, string userModified);
+        Task<ResponseResult<IEnumerable<ProductReviewGetVM>>> GetByBrandIdAsync(int brandId);
+        Task<ResponseResult<IEnumerable<ProductReviewGetVM>>> GetByUserIdAsync(string userId);
+        Task<ResponseResult<bool>> CreateAsync(ProductReviewCreateVM vm);
+        Task<ResponseResult<bool>> UpdateAsync(ProductReviewUpdateVM vm);
+        Task<ResponseResult<bool>> ToggleDeleteAsync(int id, string userModified);
     }
 }
