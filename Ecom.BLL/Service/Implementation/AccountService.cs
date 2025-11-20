@@ -3,17 +3,20 @@ namespace Ecom.BLL.Service.Implementation
 {
     public class AccountService : IAccountService
     {
+        private readonly IAccountRepo _accountRepo;
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IMapper _mapper;
         private readonly ITokenService _tokenService;
 
         public AccountService(
+            IAccountRepo accountRepo,
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
             IMapper mapper,
             ITokenService tokenService)
         {
+            _accountRepo = accountRepo;
             _userManager = userManager;
             _signInManager = signInManager;
             _mapper = mapper;
