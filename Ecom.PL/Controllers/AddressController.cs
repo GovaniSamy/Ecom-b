@@ -3,7 +3,7 @@ namespace Ecom.PL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AddressController : ControllerBase
+    public class AddressController : BaseApiController
     {
         private readonly IAddressService _addressService;
 
