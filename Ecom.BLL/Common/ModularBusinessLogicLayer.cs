@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Ecom.BLL.Mapper;
-using Ecom.BLL.Service;
 // Note: Ensure you have the correct using statements for your specific Service classes
+
 
 namespace Ecom.BLL.Common
 {
@@ -61,6 +61,9 @@ namespace Ecom.BLL.Common
 
             // Resolved Conflict: Included both Order and Review services
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IProductReviewService, ProductReviewService>();
+            services.AddScoped<IRatingCalculatorService, RatingCalculatorService>();
+
             services.AddScoped<IProductReviewService, ProductReviewService>();
             services.AddScoped<IRatingCalculatorService, RatingCalculatorService>();
 
