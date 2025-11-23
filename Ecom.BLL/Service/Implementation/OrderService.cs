@@ -15,12 +15,14 @@ namespace Ecom.BLL.Service.Implementation
         private readonly IOrderRepo orderRepo;
         private readonly IMapper mapper;
         private readonly ICartService cartService;
+        private readonly IProductService productService;
 
-        public OrderService(IOrderRepo orderRepo,IMapper mapper, ICartService cartService)
+        public OrderService(IOrderRepo orderRepo,IMapper mapper, ICartService cartService,IProductService productService)
         {
             this.orderRepo = orderRepo;
             this.mapper = mapper;
             this.cartService = cartService;
+            this.productService = productService;
         }
         //public async Task<ResponseResult<bool>> AddItemAsync(int orderId, CreateOrderItemVM itemVM)
         //{
@@ -49,13 +51,15 @@ namespace Ecom.BLL.Service.Implementation
                 var order = new Order(userId, DateTime.Now.AddDays(7), shippingAddress, userId, new List<OrderItem>());
                 foreach (var item in result.Result.CartItems)
                 {
+                    var ProductIdToName = await productService.GetByIdAsync(item.ProductId);
+                    var ProductName = ProductIdToName.Result.Title;
                     var orderItem = new OrderItem(
                         item.ProductId,
                         order.Id,               // FK
                         item.Quantity,
                         item.UnitPrice,
                         userId,
-                        item.ProductName        // snapshot title
+                        ProductName        // snapshot title need fix
                     );
 
                     order.AddItem(orderItem); // This recalculates total each add
