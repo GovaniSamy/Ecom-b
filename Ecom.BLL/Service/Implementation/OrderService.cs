@@ -51,7 +51,7 @@ namespace Ecom.BLL.Service.Implementation
                 var order = new Order(userId, DateTime.Now.AddDays(7), shippingAddress, userId, new List<OrderItem>());
                 foreach (var item in result.Result.CartItems)
                 {
-                    var ProductIdToName = await productService.GetByIdAsync(item.ProductId);
+                    var ProductIdToName = await productService.GetByIdAsync(item.ProductId); // used to include the name of the product in the OrderItem Created
                     var ProductName = ProductIdToName.Result.Title;
                     var orderItem = new OrderItem(
                         item.ProductId,
@@ -59,7 +59,7 @@ namespace Ecom.BLL.Service.Implementation
                         item.Quantity,
                         item.UnitPrice,
                         userId,
-                        ProductName        // snapshot title need fix
+                        ProductName     // snapshot title need fix
                     );
 
                     order.AddItem(orderItem); // This recalculates total each add

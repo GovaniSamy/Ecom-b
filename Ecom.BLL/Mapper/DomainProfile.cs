@@ -43,7 +43,8 @@ namespace Ecom.BLL.Mapper
             // ----------------------------------------
             // ## Cart Item Mappings
             // ----------------------------------------
-            CreateMap<CartItem, GetCartItemVM>().ReverseMap();
+            CreateMap<CartItem, GetCartItemVM>()
+                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Title));
             CreateMap<CartItem, UpdateCartItemVM>().ReverseMap();
 
             CreateMap<AddCartItemVM, CartItem>()
