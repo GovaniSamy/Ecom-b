@@ -1,4 +1,3 @@
-﻿
 namespace Ecom.BLL.ModelVM.CartItem
 {
     public class GetCartItemVM
@@ -19,6 +18,5 @@ namespace Ecom.BLL.ModelVM.CartItem
         public DateTime? UpdatedOn { get; set; }
         public string? UpdatedBy { get; set; }
         public bool IsDeleted { get; set; }
-
     }
 }

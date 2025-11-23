@@ -5,7 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Ecom.BLL.Mapper;
 // Note: Ensure you have the correct using statements for your specific Service classes
+
 
 namespace Ecom.BLL.Common
 {
@@ -87,6 +89,9 @@ namespace Ecom.BLL.Common
             services.AddScoped<IRatingCalculatorService, RatingCalculatorService>();
 
             services.AddScoped<IFaceIdService, FaceIdService>();
+
+            services.AddScoped<IProductReviewService, ProductReviewService>();
+            services.AddScoped<IRatingCalculatorService, RatingCalculatorService>();
 
             return services;
         }
