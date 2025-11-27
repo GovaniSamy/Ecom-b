@@ -4,7 +4,6 @@ using Ecom.DAL.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -12,11 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecom.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
+<<<<<<<< HEAD:Ecom.DAL/Migrations/ApplicationDbContextModelSnapshot.cs
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+========
     [Migration("20251122121836_initial&FaceId")]
     partial class initialFaceId
+>>>>>>>> 10e5938b976db6dce0cbf731c80724c8b00a6102:Ecom.DAL/Migrations/20251122121836_initial&FaceId.Designer.cs
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
