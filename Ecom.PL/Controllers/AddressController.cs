@@ -49,7 +49,7 @@ namespace Ecom.PL.Controllers
             {
                 return Ok(result.Result); // 200 with data                
             }
-            return NotFound(result.ErrorMessage); // 404
+            return BadRequest(result.ErrorMessage); // 404
         }
 
         // Create Operation

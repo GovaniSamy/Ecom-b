@@ -106,6 +106,9 @@ namespace Ecom.BLL.Common
             services.AddScoped<IProductReviewService, ProductReviewService>();
             services.AddScoped<IRatingCalculatorService, RatingCalculatorService>();
 
+            services.Configure<EmailConfig>(configuration.GetSection("SendGrid"));
+            services.AddScoped<IEmailService, EmailService>();
+
             return services;
         }
     }

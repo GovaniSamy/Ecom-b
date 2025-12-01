@@ -67,8 +67,8 @@ namespace Ecom.BLL.Service.Implementation
                     pageNumber: pageNumber);
 
                 if (addresses == null || !addresses.Any())
-                    return new ResponseResult<IEnumerable<GetAddressVM>>(null,
-                        "No addresses found.", false);
+                    return new ResponseResult<IEnumerable<GetAddressVM>>(new List<GetAddressVM>(),
+                        null, true);
 
                 var mappedAddresses = _mapper.Map<IEnumerable<GetAddressVM>>(addresses);
                 return new ResponseResult<IEnumerable<GetAddressVM>>(mappedAddresses, null, true);
