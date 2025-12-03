@@ -139,7 +139,7 @@ namespace Ecom.DAL.Repo.Implementation
 
                 bool result = oldAddress.Update(
                     newAddress.Street, newAddress.City, newAddress.Country,
-                    newAddress.PostalCode, newAddress.UpdatedBy
+                    newAddress.PostalCode, newAddress.UpdatedBy, newAddress.Latitude ?? 0, newAddress.Longitude ?? 0
                     );
 
                 if (!result)
