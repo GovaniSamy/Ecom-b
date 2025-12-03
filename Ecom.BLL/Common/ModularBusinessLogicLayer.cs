@@ -1,3 +1,7 @@
+using Ecom.BLL.Admin.Service.Abstraction;
+using Ecom.BLL.Admin.Service.Implementation;
+using Ecom.BLL.Service.Abstraction.Chatbot;
+using Ecom.BLL.Service.Implementation.Chatbot;
 using FaceRecognitionDotNet;
 
 // Note: Ensure you have the correct using statements for your specific Service classes
@@ -32,9 +36,9 @@ namespace Ecom.BLL.Common
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ClockSkew = TimeSpan.FromSeconds(5)
                 };
-            })
+            });
             // External Authentication Providers
-            .AddGoogle(options =>
+            /*.AddGoogle(options =>
             {
                 options.ClientId = configuration["Authentication:Google:ClientId"]!;
                 options.ClientSecret = configuration["Authentication:Google:ClientSecret"]!;
@@ -60,7 +64,7 @@ namespace Ecom.BLL.Common
                 options.ClientSecret = configuration["Authentication:Microsoft:ClientSecret"]!;
                 options.SignInScheme = IdentityConstants.ExternalScheme;
                 options.SaveTokens = true;
-            });
+            });*/
 
             // Face Recognition Service
             services.AddSingleton<FaceRecognition>(provider =>
@@ -105,6 +109,24 @@ namespace Ecom.BLL.Common
 
             services.AddScoped<IProductReviewService, ProductReviewService>();
             services.AddScoped<IRatingCalculatorService, RatingCalculatorService>();
+
+            // Embedding + LLM clients
+            services.AddHttpClient<IEmbeddingService, EmbeddingService>();
+            services.AddHttpClient<IAIChatService, AIChatService>();
+
+            // RAG services
+            services.AddScoped<IProductIndexingService, ProductIndexingService>();
+            services.AddScoped<IRAGQueryService, RAGQueryService>();
+            services.AddScoped<IProductRagService, ProductRagService>();
+
+            // Admin Services
+            services.AddScoped<IAdminDashboardService, AdminDashboardService>();
+            services.AddScoped<IAdminProductService, AdminProductService>();
+            services.AddScoped<IAdminOrderService, AdminOrderService>();
+            services.AddScoped<IAdminCategoryService, AdminCategoryService>();
+            services.AddScoped<IAdminBrandService, AdminBrandService>();
+            services.AddScoped<IAdminUserService, AdminUserService>();
+
 
             return services;
         }

@@ -605,6 +605,48 @@ namespace Ecom.DAL.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("Ecom.DAL.Entity.ProductEmbedding", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModelName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SourceText")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("Vector")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductEmbeddings");
+                });
+
             modelBuilder.Entity("Ecom.DAL.Entity.ProductImageUrl", b =>
                 {
                     b.Property<int>("Id")
@@ -979,6 +1021,17 @@ namespace Ecom.DAL.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("Ecom.DAL.Entity.ProductEmbedding", b =>
+                {
+                    b.HasOne("Ecom.DAL.Entity.Product", "Product")
+                        .WithMany("ProductEmbeddings")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Ecom.DAL.Entity.ProductImageUrl", b =>
                 {
                     b.HasOne("Ecom.DAL.Entity.Product", "Product")
@@ -1118,6 +1171,8 @@ namespace Ecom.DAL.Migrations
 
             modelBuilder.Entity("Ecom.DAL.Entity.Product", b =>
                 {
+                    b.Navigation("ProductEmbeddings");
+
                     b.Navigation("ProductImageUrls");
 
                     b.Navigation("ProductReviews");
