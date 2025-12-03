@@ -8,5 +8,9 @@ namespace Ecom.BLL.Service.Abstraction
         Task<ResponseResult<Payment>> GetPaymentByOrderIdAsync(int orderId);
         Task<ResponseResult<IEnumerable<GetPaymentVM>>> GetAllPaymentsAsync();
         Task<ResponseResult<bool>> ToggleDeleteStatusAsync(int id, string userModified);
+
+        Task<ResponseResult<string>> CreateStripeSessionAsync(int orderId, string userId);
+        Task<ResponseResult<bool>> MarkPaymentPaidAsync(int orderId, string paymentIntentId);
+
     }
 }

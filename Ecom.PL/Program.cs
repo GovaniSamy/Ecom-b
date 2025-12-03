@@ -2,6 +2,7 @@
 using Ecom.DAL.Entity;
 using Ecom.DAL.Seeding;
 using Microsoft.AspNetCore.Identity;
+using Stripe;
 
 namespace Ecom.PL
 {
@@ -10,6 +11,7 @@ namespace Ecom.PL
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 
             // Add services to the container.
 
@@ -45,10 +47,12 @@ namespace Ecom.PL
                 });
             });
 
+
             var app = builder.Build();
 
             //Run your seeder here
-            //using (var scope = app.Services.CreateScope())
+            //using (var scope = app.Services.
+            //Scope())
             //{
             //    var services = scope.ServiceProvider;
             //    try

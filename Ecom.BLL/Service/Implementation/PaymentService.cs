@@ -1,5 +1,9 @@
 ﻿using Ecom.BLL.ModelVM.Product;
+using Ecom.BLL.Service.Abstraction;
+using Ecom.DAL.Entity;
 using Ecom.DAL.Enum;
+using Stripe;
+using Stripe.Checkout;
 
 namespace Ecom.BLL.Service.Implementation
 {
@@ -9,13 +13,15 @@ namespace Ecom.BLL.Service.Implementation
         private readonly IMapper _mapper;
         private readonly IOrderService _orderService;
         private readonly IProductService _productService;
+        private readonly IStripeService _stripeService;
 
-        public PaymentService(IPaymentRepo paymentRepo, IMapper mapper, IOrderService orderService, IProductService productService)
+        public PaymentService(IPaymentRepo paymentRepo, IMapper mapper, IOrderService orderService, IProductService productService,IStripeService stripeService)
         {
             _paymentRepo = paymentRepo;
             _mapper = mapper;
             _orderService = orderService;
             _productService = productService;
+            _stripeService = stripeService;
         }
 
         public async Task<ResponseResult<Payment>> CreatePaymentRecordAsync(CreatePaymentVM paymentVM, string userId)
@@ -190,6 +196,56 @@ namespace Ecom.BLL.Service.Implementation
             return result
                 ? new ResponseResult<bool>(true, null, true)
                 : new ResponseResult<bool>(false, "Failed to toggle delete status.", false);
+        }
+
+        public async Task<ResponseResult<string>> CreateStripeSessionAsync(int orderId, string userId)
+        {
+            var order = await _orderService.GetByIdAsync(orderId);
+
+            if (order == null)
+                return new ResponseResult<string>(null, "Order not found", false);
+
+            // Call StripeService
+            var sessionUrl = await _stripeService.CreateCheckoutSessionAsync(order.Result!);
+
+            if (sessionUrl == null)
+                return new ResponseResult<string>(null, "Failed to create Stripe session", false);
+
+            return new ResponseResult<string>(sessionUrl, null, true);
+        }
+
+        public async Task<ResponseResult<bool>> MarkPaymentPaidAsync(int orderId, string paymentIntentId)
+        {
+            try
+            {
+                // STEP 1 — Fetch Payment with Order included
+                var payment = await _paymentRepo.GetByOrderIdAsync(orderId);
+
+                if (payment == null)
+                    return new ResponseResult<bool>(false, "Payment record not found for this order", false);
+
+                // STEP 2 — Use Entity Method (Private Setters!)
+                bool updated = payment.Update(
+                    transactionId: paymentIntentId,
+                    userModified: "StripeWebhook",
+                    paymentStatus: PaymentStatus.Completed
+                );
+
+                if (!updated)
+                    return new ResponseResult<bool>(false, "Failed to update payment entity", false);
+
+                // STEP 3 — Save Changes
+                bool saved = await _paymentRepo.UpdateAsync(payment);
+
+                if (!saved)
+                    return new ResponseResult<bool>(false, "Failed to save payment changes", false);
+
+                return new ResponseResult<bool>(true, null, true);
+            }
+            catch (Exception ex)
+            {
+                return new ResponseResult<bool>(false, ex.Message, false);
+            }
         }
 
 
