@@ -3,17 +3,22 @@ using Stripe.Checkout;
 
 public class StripeService : IStripeService
 {
-    public async Task<string> CreateCheckoutSessionAsync(GetOrderVM order)
+    public async Task<string> CreateCheckoutSessionAsync(GetOrderVM order, Payment payment)
     {
         var options = new SessionCreateOptions
         {
             Mode = "payment",
 
-            // REQUIRED so webhook can find the order
-            ClientReferenceId = order.Id.ToString(),
-
             SuccessUrl = $"http://localhost:4200/order/success/{order.Id}?session_id={{CHECKOUT_SESSION_ID}}",
             CancelUrl = "http://localhost:4200/order/cancel",
+
+            // Attach your data so the webhook can process it
+            Metadata = new Dictionary<string, string>
+        {
+            { "orderId", order.Id.ToString() },
+            { "paymentId", payment.Id.ToString() },
+            { "userId", order.AppUserId }
+        },
 
             LineItems = order.Items.Select(item => new SessionLineItemOptions
             {
@@ -35,5 +40,6 @@ public class StripeService : IStripeService
 
         return session.Url;
     }
+
 
 }

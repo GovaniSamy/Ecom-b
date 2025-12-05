@@ -1,9 +1,11 @@
 ﻿
+using Ecom.DAL.Enum;
+
 namespace Ecom.BLL.Service.Abstraction
 {
     public interface IPaymentService
     {
-        Task<ResponseResult<Payment>> CreatePaymentRecordAsync(CreatePaymentVM model, string userId);
+        Task<ResponseResult<GetPaymentVM>> CreatePaymentRecordAsync(CreatePaymentVM model, string userId);
         Task<ResponseResult<bool>> UpdatePaymentStatusAsync(PaymentResultVM model, string UpdatedBy);
         Task<ResponseResult<Payment>> GetPaymentByOrderIdAsync(int orderId);
         Task<ResponseResult<IEnumerable<GetPaymentVM>>> GetAllPaymentsAsync();
@@ -11,6 +13,7 @@ namespace Ecom.BLL.Service.Abstraction
 
         Task<ResponseResult<string>> CreateStripeSessionAsync(int orderId, string userId);
         Task<ResponseResult<bool>> MarkPaymentPaidAsync(int orderId, string paymentIntentId);
+        Task<ResponseResult<bool>> MarkPaymentFailedAsync(int orderId, string paymentIntentId, PaymentStatus status);
 
     }
 }

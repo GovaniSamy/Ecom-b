@@ -20,7 +20,7 @@ namespace Ecom.PL.Controllers
         /// </summary>
         [HttpPost("create")]
         [Authorize] // Must be logged in
-        public async Task<ActionResult<Payment>> CreatePayment([FromBody] CreatePaymentVM model)
+        public async Task<ActionResult<GetPaymentVM>> CreatePayment([FromBody] CreatePaymentVM model)
         {
             if (CurrentUserId == null)
             {

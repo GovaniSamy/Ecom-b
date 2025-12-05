@@ -9,6 +9,6 @@ namespace Ecom.BLL.Service.Abstraction
 {
     public interface IStripeService
     {
-        Task<string> CreateCheckoutSessionAsync(GetOrderVM order);
+        Task<string> CreateCheckoutSessionAsync(GetOrderVM order, Payment payment);
     }
 }
